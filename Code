@@ -14,8 +14,6 @@ const uint8_t C = A2;
 const int POTENTIOMETER_PIN_NUMBER = 5;
 const int BUTTON_PIN_NUMBER = 10;
 
-
-
 // a global variable that represents the LED screen
 RGBmatrixPanel matrix(A, B, C, CLK, LAT, OE, false);
 
@@ -70,18 +68,17 @@ class Bird {
 
 class Bird {
   public:
-  
-  //Constructors
+  //Default Constructor
   Bird(){
     x = 0; 
     y = 0; 
     life = 1; 
   }
-  
   //Non-Default Constructor, Sets private data members
   Bird(int x_arg, int y_arg){
     initialize(x_arg, y_arg); 
   }
+  
   void initialize (int x_arg, int y_arg){
     x = x_arg; 
     y = y_arg; 
@@ -149,13 +146,11 @@ class Game {
   // void setup
   // void update
 
-
   private:
   // score, unsigned long time,
   // instances for each class
   // possible an array for pipes
 }
-
 
 void setup() {
  Serial.begin(9600);
@@ -174,7 +169,7 @@ void print_score(int score);
 
 }
 
-// displays "Game over"
+// displays "Game Over"
 void game_over() {
 matrix.setCursor(3,0);
 matrix.setTextSize(1);
