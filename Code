@@ -87,9 +87,15 @@ Game game;
 
 void setup() {
   // put your setup code here, to run once:
- 
-
+ Serial.begin(9600);
+ pinMode(BUTTON_PIN_NUMBER, INPUT);
+ matrix.begin();
+ game.setup();
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
+  int potentiometer_value = analogRead(POTENTIOMETER_PIN_NUMBER);
+  bool button_pressed = (digitalRead(BUTTON_PIN_NUMBER) == HIGH);
+  game.update(potentiometer_value, button_pressed);
+  }
