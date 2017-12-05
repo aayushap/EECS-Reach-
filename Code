@@ -68,17 +68,79 @@ class Bird {
 // void draw_with_rgb
 };
 
-class Pipes {
-  public: 
-  // default and non-default constructors
-  // initialize
-  // getters and setters for x and y
-  // void move in x direction
-  // void draw
+class Bird {
+  public:
+  
+  //Constructors
+  Bird(){
+    x = 0; 
+    y = 0; 
+    life = 1; 
+  }
+  
+  //Non-Default Constructor, Sets private data members
+  Bird(int x_arg, int y_arg){
+    initialize(x_arg, y_arg); 
+  }
+  void initialize (int x_arg, int y_arg){
+    x = x_arg; 
+    y = y_arg; 
+    life = 1; 
+  }
+  
+  //Getters & Setters for Bird
+  int get_x() const {
+    return x;
+  }
+  int get_y() const {
+    return y; 
+  }
+  int get_life() const {
+    return life; 
+  }
+  
+  //Moves the bird to the right
+  //Modifies: x, y
+  void move() {
+    //He must fall (change height/y) as he travels along (distance/x). What rate? 
+  }
+  
+  //Draws the Flappy Bird if life > 0
+  //Calls: draw_with_rgb
+  void draw() {
+    if (life < 1) {
+     erase(); 
+    }
+    else {
+     draw_with_rgb(YELLOW, WHITE, ORANGE); 
+    }
+  }
+  
+  //Bird flies into the Pipe or hits the ground! 
+  //Calls: erase
+  void hit() {
+    lives--;
+    erase(); 
+   }
 
-  private: 
-  // x, y
-  // draw with RGB (green) with randomized y values
+  //Draws the background color, Aqua, where the Flappy Bird used to be.
+  //Calls: draw_with_rgb
+  void erase() {
+    draw_with_rgb(AQUA, AQUA, AQUA); 
+  }
+  
+  private:
+  int x; 
+  int y; 
+  int life; 
+  
+  //Draws Flappy Bird
+  void draw_with_rgb(Color body_color, Color eye_color, Color mouth_color){
+    matrix.drawPixel(x, y, body_color.to_333(); 
+    matrix.drawPixel(x, y + 1, body_color.to_333(); 
+    matrix.drawPixel(x + 1, y, eye_color.to_333(); 
+    matrix.drawPixel(x + 1, y + 1, mouth_color.to_333(); 
+  }
 };
 
 class Game {
