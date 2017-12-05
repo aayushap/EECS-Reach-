@@ -112,6 +112,31 @@ void print_score(int score);
 
 }
 
+// displays "Game over"
 void game_over() {
+matrix.setCursor(3,0);
+matrix.setTextSize(1);
 
+//game over displays in red
+matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.print('G');
+matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.print('A');
+matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.print('M');
+matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.print('E');
+
+matrix.setCursor(2,9);
+matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.print('O');
+matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.print('V');
+matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.print('E');
+matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.print('R');
+matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.print('!');
+}
 }
