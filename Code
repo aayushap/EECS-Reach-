@@ -14,8 +14,6 @@ const uint8_t C = A2;
 const int POTENTIOMETER_PIN_NUMBER = 5;
 const int BUTTON_PIN_NUMBER = 10;
 
-
-
 // a global variable that represents the LED screen
 RGBmatrixPanel matrix(A, B, C, CLK, LAT, OE, false);
 
@@ -56,20 +54,6 @@ const Color AQUA(0, 7, 7);
 
 class Bird {
   public:
-// default and non-default constructors
-// getters and setters for x and y
-// initialize function
-// void move
-// void draw
-// void hit
-// void erase 
-  private:
-// private variables x, y
-// void draw_with_rgb
-};
-
-class Bird {
-  public:
   
   //Constructors
   Bird(){
@@ -105,7 +89,7 @@ class Bird {
     //He must fall (change height/y) as he travels along (distance/x). What rate? 
   }
   
-  //Draws the Flappy Bird if life > 0
+  //Draws the Flappy Bird if life greater than 0
   //Calls: draw_with_rgb
   void draw() {
     if (life < 1) {
@@ -156,7 +140,7 @@ class Pipes {
     y = height;
   }
   
-  // initialize
+  //Initializes the width and height of Pipes
   Pipes(int width, int height) {
     initialize(width, height);
   }
@@ -175,18 +159,22 @@ class Pipes {
     return y;
   }
   
-  // void move in x direction
+  //Y remains the same, while the X moves to the left
   void move() {
   }
   
-  // void draw
+  //Draws the Pipe
   void draw() {
   }
 
   private: 
   int x; //width
   int y; //Height
-  // draw with RGB (green) with randomized y values
+
+  //Draws the Pipe (with RGB Green) randomized Y values
+  void draw_with_rgb(Color side_pipe_color, Color top_pipe_color){
+
+  }
 };
 
 class Game {
