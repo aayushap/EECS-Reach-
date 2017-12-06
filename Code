@@ -82,14 +82,28 @@ class Pipes {
     x = 0;
     y = 0;
   }
-  Pipes(int width, height) {
+  Pipes(int width, int height) {
     x = width;
     y = height;
   }
   // initialize
+  Pipes(int width, int height) {
+    initialize(width, height);
+  }
   void initialize(int width, int height) {
-  
+    x = width;
+    y = height;
+  }
   // getters and setters for x and y
+  int get_x() const {
+    return x;
+  }
+  int get_y() const {
+    return y;
+  }
+  
+  void move() {
+  
   // void move in x direction
   // void draw
 
