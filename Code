@@ -181,7 +181,7 @@ class Pipes {
   }
 };
 
-lass Game {
+class Game {
   public:
   //Constructor for Game class
   Game(){ 
