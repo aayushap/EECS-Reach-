@@ -52,9 +52,6 @@ const Color WHITE(7, 7, 7);
 const Color LIME(4, 7, 0);
 const Color AQUA(0, 7, 7);
 
-const float gravity; //0.005 
-const float lift; //-0.005
-
 class Bird {
   public:
   //Default and Non-Default Constructor
@@ -88,6 +85,11 @@ class Bird {
   //Moves the bird to the right
   //Modifies: x, y
   void move() {
+  int outofBounds = 16;
+  for (int y = 3; y < outofBounds; y++) {
+    if (button_pressed) {
+    
+      
     //He must fall (change height/y) as he travels along (distance/x). What rate? 
   }
   
@@ -131,7 +133,7 @@ class Bird {
 
 class Pipes {
   public: 
-  //Default and Non-Default Constructors
+  //Default and Non-default Constructors
   Pipes() {
     x = 0;
     y = 0;
@@ -175,46 +177,21 @@ class Pipes {
 
   //Draws the Pipe (with RGB Green) randomized Y values
   void draw_with_rgb(Color side_pipe_color, Color top_pipe_color){
-
+ 
   }
 };
 
 class Game {
   public:
-  //Constructor for Game class
-  Game(){ 
-    time = 0; 
-    score = 0; 
-  }
-  
-  //Sets up a new Game of FlappyBird
-  //Modifies: Global variable Matrix
-  void setup(){
-    reset_game(); 
-   }
-   
-  // advances the game simulation one step and renders the graphics
-  // see spec for details of game
-  // Modifies: global variable matrix
-  void update(int potentiometer_value, bool button_pressed){ 
-    //FIX & COMPARE
-    //if statements if the bird hits the pipe or the ground
-  }
+  // Game constructor
+  // void setup
+  // void update
 
   private:
-  int score; 
-  int time; 
-  Bird bird; 
-    //Array of Pipes for Flappy Bird
-  Pipes pipes[number]; 
-  
-  //Resets the Game
-  void reset_game(){
-    //CODE
-  }
+  // score, unsigned long time,
+  // instances for each class
+  // possible an array for pipes
 }
-
-Game game; 
 
 void setup() {
  Serial.begin(9600);
@@ -230,8 +207,7 @@ void loop() {
 }
 
 void print_score(int score);
-  matrix.fillScreen(BLACK);
-  matrix.setCursor(9,0); //Fix ME to place the score in the right place
+  matix.setCursor(9,0); //Fix ME to place the score in the right place
   matrix.setTextSize(0.5); //Possibly fix as well
   
   matrix.setTextColor(matrix.Color333(7,0,0);
@@ -254,7 +230,6 @@ void print_score(int score);
 
 //Displays "Game Over"
 void game_over() {
-matrix.fillScreen(BLACK); 
 matrix.setCursor(3,0);
 matrix.setTextSize(1);
 
