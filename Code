@@ -58,13 +58,6 @@ class Bird {
   public:
 // default and non-default constructors
 // getters and setters for x and y
-int get_x() const {
-  return x;
-}
-int get_y() const {
-  return y;
-}
-
 // initialize function
 // void move
 // void draw
@@ -72,44 +65,122 @@ int get_y() const {
 // void erase 
   private:
 // private variables x, y
-  int x;
-  int y;
 // void draw_with_rgb
 };
 
-class Pipes {
-  public: 
-  // default and non-default constructors
-  Pipes() {
-    x = 0;
-    y = 0;
+class Bird {
+  public:
+  
+  //Constructors
+  Bird(){
+    x = 0; 
+    y = 0; 
+    life = 1; 
   }
-  Pipes(int width, int height) {
-    x = width;
-    y = height;
+  
+  //Non-Default Constructor, Sets private data members
+  Bird(int x_arg, int y_arg){
+    initialize(x_arg, y_arg); 
   }
-  // initialize
-  Pipes(int width, int height) {
-    initialize(width, height);
+  void initialize (int x_arg, int y_arg){
+    x = x_arg; 
+    y = y_arg; 
+    life = 1; 
   }
-  void initialize(int width, int height) {
-    x = width;
-    y = height;
-  }
-  // getters and setters for x and y
+  
+  //Getters & Setters for Bird
   int get_x() const {
     return x;
   }
   int get_y() const {
+    return y; 
+  }
+  int get_life() const {
+    return life; 
+  }
+  
+  //Moves the bird to the right
+  //Modifies: x, y
+  void move() {
+    //He must fall (change height/y) as he travels along (distance/x). What rate? 
+  }
+  
+  //Draws the Flappy Bird if life > 0
+  //Calls: draw_with_rgb
+  void draw() {
+    if (life < 1) {
+     erase(); 
+    }
+    else {
+     draw_with_rgb(YELLOW, WHITE, ORANGE); 
+    }
+  }
+  
+  //Bird flies into the Pipe or hits the ground! 
+  //Calls: erase
+  void hit() {
+    lives--;
+    erase(); 
+   }
+
+  //Draws the background color, Aqua, where the Flappy Bird used to be.
+  //Calls: draw_with_rgb
+  void erase() {
+    draw_with_rgb(AQUA, AQUA, AQUA); 
+  }
+  
+  private:
+  int x; 
+  int y; 
+  int life; 
+  
+  //Draws Flappy Bird
+  void draw_with_rgb(Color body_color, Color eye_color, Color mouth_color){
+    matrix.drawPixel(x, y, body_color.to_333(); 
+    matrix.drawPixel(x, y + 1, body_color.to_333(); 
+    matrix.drawPixel(x + 1, y, eye_color.to_333(); 
+    matrix.drawPixel(x + 1, y + 1, mouth_color.to_333(); 
+  }
+};
+
+class Pipes {
+  public: 
+  //Default and Non-default Constructors
+  Pipes() {
+    x = 0;
+    y = 0;
+  }
+  
+  Pipes(int width, int height) {
+    x = width;
+    y = height;
+  }
+  
+  // initialize
+  Pipes(int width, int height) {
+    initialize(width, height);
+  }
+  
+  void initialize(int width, int height) {
+    x = width;
+    y = height;
+  }
+  
+  //Getters and Setters for x and y
+  int get_x() const {
+    return x;
+  }
+  
+  int get_y() const {
     return y;
   }
+  
   // void move in x direction
   void move() {
-  
   }
+  
   // void draw
   void draw() {
-  
   }
 
   private: 
@@ -123,7 +194,6 @@ class Game {
   // Game constructor
   // void setup
   // void update
-
 
   private:
   // score, unsigned long time,
@@ -165,10 +235,9 @@ void print_score(int score);
   matrix.setCursor(13, 9);   // CHANGE CURSOR TO BE SMALLER and under the "Score"
   matrix.setTextColor(matrix.Color333(0,7,0)); 
   matrix.print(score);
-  
 }
 
-// displays "Game over"
+//Displays "Game Over"
 void game_over() {
 matrix.setCursor(3,0);
 matrix.setTextSize(1);
@@ -195,4 +264,3 @@ matrix.print('R');
 matrix.setTextColor(matrix.Color333(7,0,0);
 matrix.print('!');
 }
-
