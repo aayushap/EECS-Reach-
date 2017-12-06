@@ -230,7 +230,8 @@ void loop() {
 }
 
 void print_score(int score);
-  matix.setCursor(9,0); //Fix ME to place the score in the right place
+  matrix.fillScreen(BLACK);
+  matrix.setCursor(9,0); //Fix ME to place the score in the right place
   matrix.setTextSize(0.5); //Possibly fix as well
   
   matrix.setTextColor(matrix.Color333(7,0,0);
@@ -253,6 +254,7 @@ void print_score(int score);
 
 //Displays "Game Over"
 void game_over() {
+matrix.fillScreen(BLACK); 
 matrix.setCursor(3,0);
 matrix.setTextSize(1);
 
