@@ -199,7 +199,11 @@ class Game {
   // see spec for details of game
   // Modifies: global variable matrix
   void update(int potentiometer_value, bool button_pressed){ 
-    //FIX & COMPARE
+    delay(40);
+    time = millis() / 1000;
+    bird.erase();
+    bird.set_y(button_pressed);
+    bird.draw();
     //if statements if the bird hits the pipe or the ground
   }
 
