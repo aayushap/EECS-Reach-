@@ -181,17 +181,42 @@ class Pipes {
   }
 };
 
-class Game {
+lass Game {
   public:
-  // Game constructor
-  // void setup
-  // void update
+  //Constructor for Game class
+  Game(){ 
+    time = 0; 
+    score = 0; 
+  }
+  
+  //Sets up a new Game of FlappyBird
+  //Modifies: Global variable Matrix
+  void setup(){
+    reset_game(); 
+   }
+   
+  // advances the game simulation one step and renders the graphics
+  // see spec for details of game
+  // Modifies: global variable matrix
+  void update(int potentiometer_value, bool button_pressed){ 
+    //FIX & COMPARE
+    //if statements if the bird hits the pipe or the ground
+  }
 
   private:
-  // score, unsigned long time,
-  // instances for each class
-  // possible an array for pipes
+  int score; 
+  int time; 
+  Bird bird; 
+    //Array of Pipes for Flappy Bird
+  Pipe pipes[number]; 
+  
+  //Resets the Game
+  void reset_game(){
+    //CODE
+  }
 }
+
+Game game; 
 
 void setup() {
  Serial.begin(9600);
