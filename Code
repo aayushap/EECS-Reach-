@@ -72,6 +72,8 @@ int get_y() const {
 // void erase 
   private:
 // private variables x, y
+  int x;
+  int y;
 // void draw_with_rgb
 };
 
