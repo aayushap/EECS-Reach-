@@ -53,7 +53,8 @@ const Color LIME(4, 7, 0);
 const Color AQUA(0, 7, 7);
 
 const float gravity; //0.005 
-const float lift; //0.005
+const float lift; //-0.005
+
 class Bird {
   public:
   //Default and Non-Default Constructor
@@ -130,7 +131,7 @@ class Bird {
 
 class Pipes {
   public: 
-  //Default and Non-default Constructors
+  //Default and Non-Default Constructors
   Pipes() {
     x = 0;
     y = 0;
@@ -205,13 +206,15 @@ class Game {
   int time; 
   Bird bird; 
     //Array of Pipes for Flappy Bird
-  Pipe pipes[number]; 
+  Pipes pipes[number]; 
   
   //Resets the Game
   void reset_game(){
     //CODE
   }
 }
+
+Game game; 
 
 void setup() {
  Serial.begin(9600);
