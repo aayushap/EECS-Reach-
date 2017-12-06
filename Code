@@ -101,11 +101,14 @@ class Pipes {
   int get_y() const {
     return y;
   }
-  
+  // void move in x direction
   void move() {
   
-  // void move in x direction
+  }
   // void draw
+  void draw() {
+  
+  }
 
   private: 
   int x; //width
@@ -141,7 +144,26 @@ void loop() {
 }
 
 void print_score(int score);
-
+  matix.setCursor(9,0); //Fix ME to place the score in the right place
+  matrix.setTextSize(0.5); //Possibly fix as well
+  
+  matrix.setTextColor(matrix.Color333(7,0,0);
+  matrix.print('S');
+  matrix.setTextColor(matrix.Color333(7,0,0);
+  matrix.print('C');
+  matrix.setTextColor(matrix.Color333(7,0,0);
+  matrix.print('O');
+  matrix.setTextColor(matrix.Color333(7,0,0);
+  matrix.print('R');
+  matrix.setTextColor(matrix.Color333(7,0,0);
+  matrix.print('E');
+  matrix.setTextColor(matrix.Color333(7,0,0);
+  matrix.print(':');
+  
+  matrix.setCursor(13, 9);   // CHANGE CURSOR TO BE SMALLER and under the "Score"
+  matrix.setTextColor(matrix.Color333(0,7,0)); 
+  matrix.print(score);
+  
 }
 
 // displays "Game over"
