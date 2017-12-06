@@ -54,18 +54,17 @@ const Color AQUA(0, 7, 7);
 
 class Bird {
   public:
-  
-  //Constructors
+  //Default and Non-Default Constructor
   Bird(){
     x = 0; 
     y = 0; 
     life = 1; 
   }
-  
-  //Non-Default Constructor, Sets private data members
+
   Bird(int x_arg, int y_arg){
     initialize(x_arg, y_arg); 
   }
+  
   void initialize (int x_arg, int y_arg){
     x = x_arg; 
     y = y_arg; 
@@ -188,7 +187,6 @@ class Game {
   // instances for each class
   // possible an array for pipes
 }
-
 
 void setup() {
  Serial.begin(9600);
