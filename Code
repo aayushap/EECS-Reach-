@@ -52,8 +52,8 @@ const Color WHITE(7, 7, 7);
 const Color LIME(4, 7, 0);
 const Color AQUA(0, 7, 7);
 
-const float gravity; //0.005 
-const float lift; //-0.005
+const float gravity;
+const float lift;
 
 class Bird {
   public:
@@ -180,7 +180,7 @@ class Game {
     }
      
   void setup() {
-    
+    bird.draw();
   }
   void update(int potentiometer_value, bool button_pressed) {
     
@@ -193,13 +193,12 @@ class Game {
   // possible an array for pipes
 };
 
-  
+  Game game;
 
 void setup() {
  Serial.begin(9600);
   pinMode(BUTTON_PIN_NUMBER, INPUT);
   matrix.begin();
-  bird.draw();
   game.setup();
 }
 
@@ -207,23 +206,23 @@ void loop() {
    int potentiometer_value = analogRead(POTENTIOMETER_PIN_NUMBER);
   bool button_pressed = (digitalRead(BUTTON_PIN_NUMBER) == HIGH);
   game.update(potentiometer_value, button_pressed);
-};
+}
 
-void print_score(int score);
-  matix.setCursor(9,0); //Fix ME to place the score in the right place
+void print_score(int score) {
+  matrix.setCursor(9,0); //Fix ME to place the score in the right place
   matrix.setTextSize(0.5); //Possibly fix as well
   
-  matrix.setTextColor(matrix.Color333(7,0,0);
+  matrix.setTextColor(matrix.Color333(7,0,0));
   matrix.print('S');
-  matrix.setTextColor(matrix.Color333(7,0,0);
+  matrix.setTextColor(matrix.Color333(7,0,0));
   matrix.print('C');
-  matrix.setTextColor(matrix.Color333(7,0,0);
+  matrix.setTextColor(matrix.Color333(7,0,0));
   matrix.print('O');
-  matrix.setTextColor(matrix.Color333(7,0,0);
+  matrix.setTextColor(matrix.Color333(7,0,0));
   matrix.print('R');
-  matrix.setTextColor(matrix.Color333(7,0,0);
+  matrix.setTextColor(matrix.Color333(7,0,0));
   matrix.print('E');
-  matrix.setTextColor(matrix.Color333(7,0,0);
+  matrix.setTextColor(matrix.Color333(7,0,0));
   matrix.print(':');
   
   matrix.setCursor(13, 9);   // CHANGE CURSOR TO BE SMALLER and under the "Score"
@@ -237,24 +236,24 @@ matrix.setCursor(3,0);
 matrix.setTextSize(1);
 
 //game over displays in red
-matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.setTextColor(matrix.Color333(7,0,0));
 matrix.print('G');
-matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.setTextColor(matrix.Color333(7,0,0));
 matrix.print('A');
-matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.setTextColor(matrix.Color333(7,0,0));
 matrix.print('M');
-matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.setTextColor(matrix.Color333(7,0,0));
 matrix.print('E');
 
 matrix.setCursor(2,9);
-matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.setTextColor(matrix.Color333(7,0,0));
 matrix.print('O');
-matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.setTextColor(matrix.Color333(7,0,0));
 matrix.print('V');
-matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.setTextColor(matrix.Color333(7,0,0));
 matrix.print('E');
-matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.setTextColor(matrix.Color333(7,0,0));
 matrix.print('R');
-matrix.setTextColor(matrix.Color333(7,0,0);
+matrix.setTextColor(matrix.Color333(7,0,0));
 matrix.print('!');
 }
