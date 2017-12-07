@@ -52,6 +52,9 @@ const Color WHITE(7, 7, 7);
 const Color LIME(4, 7, 0);
 const Color AQUA(0, 7, 7);
 
+const float rise_rate = 2.0;
+const float fall_rate = 1.0;
+
 class Bird {
   public:
   //Default and Non-Default Constructor
@@ -85,17 +88,18 @@ class Bird {
     y = y_arg;
   }
   
-  //Moves the bird to the right
-  //Modifies: x, y
+  //Moves the bird up and down
+  //Modifies: y
   void move() {
   int outofBounds = 16;
   bool button_pressed;
       if (button_pressed) {
-        y = y + 2;
+        // Will rise by rise_rate
+        y = y + rise_rate;
       }
       else {
-        y = y - 1;
-      //He must fall (change height/y) as he travels along (distance/x). What rate? 
+        // when button released, will fall by fall rate.
+        y = y - fall_rate; 
       }
   }
   //Draws the Flappy Bird if life greater than 0
@@ -115,7 +119,7 @@ class Bird {
     erase(); 
    }
 
-  //Draws the background color, Aqua, where the Flappy Bird used to be.
+  //Draws the background color, Black, where the Flappy Bird used to be.
   //Calls: draw_with_rgb
   void erase() {
     draw_with_rgb(BLACK, BLACK, BLACK); 
@@ -201,7 +205,7 @@ class Game {
     delay(10);
     time = millis() / 1000;
     bird.erase();
-    bird.set_y(potentiometer_value / 32);
+    // bird.set_y(potentiometer_value / 32);
     bird.draw();
   }
    
