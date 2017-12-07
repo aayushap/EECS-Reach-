@@ -52,16 +52,13 @@ const Color WHITE(7, 7, 7);
 const Color LIME(4, 7, 0);
 const Color AQUA(0, 7, 7);
 
-const float gravity;
-const float lift;
-
 class Bird {
   public:
   //Default and Non-Default Constructor
   Bird(){
-    x = 0; 
-    y = 0; 
-    life = 1; 
+     x = 0; 
+     y = 0; 
+     life = 1; 
   }
 
   Bird(int x_arg, int y_arg){
@@ -84,13 +81,23 @@ class Bird {
   int get_life() const {
     return life; 
   }
+  int set_y(int y_arg) {
+    y = y_arg;
+  }
   
   //Moves the bird to the right
   //Modifies: x, y
   void move() {
-    //He must fall (change height/y) as he travels along (distance/x). What rate? 
+  int outofBounds = 16;
+  bool button_pressed;
+      if (button_pressed) {
+        y = y + 2;
+      }
+      else {
+        y = y - 1;
+      //He must fall (change height/y) as he travels along (distance/x). What rate? 
+      }
   }
-  
   //Draws the Flappy Bird if life greater than 0
   //Calls: draw_with_rgb
   void draw() {
@@ -98,7 +105,7 @@ class Bird {
      erase(); 
     }
     else {
-     draw_with_rgb(YELLOW, WHITE, ORANGE); 
+     draw_with_rgb(YELLOW, WHITE, BLUE); 
     }
   }
   
@@ -111,7 +118,7 @@ class Bird {
   //Draws the background color, Aqua, where the Flappy Bird used to be.
   //Calls: draw_with_rgb
   void erase() {
-    draw_with_rgb(AQUA, AQUA, AQUA); 
+    draw_with_rgb(BLACK, BLACK, BLACK); 
   }
   
   private:
@@ -121,10 +128,10 @@ class Bird {
   
   //Draws Flappy Bird
   void draw_with_rgb(Color body_color, Color eye_color, Color mouth_color){
-    matrix.drawPixel(x, y, body_color.to_333()); 
-    matrix.drawPixel(x, y + 1, body_color.to_333()); 
-    matrix.drawPixel(x + 1, y, eye_color.to_333()); 
-    matrix.drawPixel(x + 1, y + 1, mouth_color.to_333()); 
+    matrix.drawPixel(x + 4, y + 7, body_color.to_333()); 
+    matrix.drawPixel(x + 4, y + 6, body_color.to_333()); 
+    matrix.drawPixel(x + 5, y + 7, eye_color.to_333()); 
+    matrix.drawPixel(x + 5, y + 6, mouth_color.to_333()); 
   }
 };
 
@@ -136,6 +143,7 @@ class Pipes {
     y = 0;
   }
   
+  //Initializes the width and height of Pipes
   Pipes(int width, int height) {
     initialize(width, height);
   }
@@ -168,32 +176,52 @@ class Pipes {
 
   //Draws the Pipe (with RGB Green) randomized Y values
   void draw_with_rgb(Color side_pipe_color, Color top_pipe_color){
-
+ 
   }
 };
 
 class Game {
   public:
-    Game() {
-      score = 0;
-      time = 0;
-    }
-     
-  void setup() {
+  //Constructor for Game class
+  Game(){ 
+    time = 0; 
+    score = 0; 
+  }
+  
+  //Sets up a new Game of FlappyBird
+  //Modifies: Global variable Matrix
+  void setup(){
+    reset_game(); 
+   }
+   
+  // advances the game simulation one step and renders the graphics
+  // see spec for details of game
+  // Modifies: global variable matrix
+  void update(int potentiometer_value, bool button_pressed){ 
+    delay(10);
+    time = millis() / 1000;
+    bird.erase();
+    bird.set_y(potentiometer_value / 32);
     bird.draw();
   }
-  void update(int potentiometer_value, bool button_pressed) {
-    
-  }
+   
+
+    //if statements if the bird hits the pipe or the ground
+
   private:
-  int score;
-  unsigned long time;
-  Bird bird;
-  Pipes pipe;
-  // possible an array for pipes
+  int score; 
+  int time; 
+  Bird bird; 
+    //Array of Pipes for Flappy Bird
+  Pipes pipe; 
+  
+  //Resets the Game
+  void reset_game(){
+    //CODE
+  }
 };
 
-  Game game;
+Game game; 
 
 void setup() {
  Serial.begin(9600);
