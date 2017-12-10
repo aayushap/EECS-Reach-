@@ -90,10 +90,10 @@ class Bird {
   
   //Moves the bird up and down
   //Modifies: y
+  bool jumped;
   void move() {
   int outofBounds = 16;
-  bool button_pressed;
-      if (button_pressed) {
+      if (jumped) {
         // Will rise by rise_rate
         y = y + rise_rate;
       }
@@ -129,6 +129,7 @@ class Bird {
   int x; 
   int y; 
   int life; 
+
   
   //Draws Flappy Bird
   void draw_with_rgb(Color body_color, Color eye_color, Color mouth_color){
@@ -203,10 +204,16 @@ class Game {
   // Modifies: global variable matrix
   void update(int potentiometer_value, bool button_pressed){ 
     delay(10);
-    time = millis() / 1000;
-    bird.erase();
-    // bird.set_y(potentiometer_value / 32);
-    bird.draw();
+    if (button_pressed) {
+      time = millis();
+      if (millis() - time > 1000) {
+        bird.erase();
+        bird.draw();
+        bird.move();
+      }
+      }
+    
+    }
   }
    
 
