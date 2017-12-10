@@ -245,11 +245,6 @@ void loop() {
   int potentiometer_value = analogRead(POTENTIOMETER_PIN_NUMBER);
   bool button_pressed = (digitalRead(BUTTON_PIN_NUMBER) == LOW);
   game.update(potentiometer_value, button_pressed);
-  
-  if (!game.update(potentiometer_value, button_pressed)) {
-    game_over;
-    print_score(score);
-  }
 }
 
 void print_score(int score) {
