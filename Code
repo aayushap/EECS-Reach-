@@ -197,13 +197,17 @@ class Game {
   //Modifies: Global variable Matrix
   void setup(){
     reset_game(); 
+    matrix.drawRect(5, 0, 4, 6, GREEN.to_333());
+    matrix.fillRect(5, 0, 4, 6, GREEN.to_333());
+    matrix.drawRect(5, 10, 4, 6, GREEN.to_333());
+    matrix.fillRect(5, 10, 4, 6, GREEN.to_333());
+
    }
    
   // advances the game simulation one step and renders the graphics
   // see spec for details of game
   // Modifies: global variable matrix
   void update(int potentiometer_value, bool button_pressed){ 
-    delay(10);
     if (button_pressed) {
       time = millis();
       if (millis() - time > 1000) {
