@@ -180,7 +180,7 @@ class Pipes {
   int y; //Height
 
   //Draws the Pipe (with RGB Green) randomized Y values
-  void draw_with_rgb(Color side_pipe_color, Color top_pipe_color){
+  void draw_with_rgb(Color pipe_color){
  
   }
 };
