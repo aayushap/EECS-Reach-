@@ -186,9 +186,15 @@ class Pipes {
   
   //Draws the Pipe
   void draw() {
+  if () {
+  x = random() //Input something in parentheses
+  y = random() //Input something 
   }
   
+   //As the game move to the left, the pixel will delete
   void erase() {
+ 
+  
   }
 
   private: 
