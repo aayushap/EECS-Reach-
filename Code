@@ -80,11 +80,9 @@ class Bird {
   int get_x() const {
     return x;
   }
-  
   int get_y() const {
     return y; 
   }
-  
   int get_life() const {
     return life; 
   }
@@ -114,7 +112,6 @@ class Bird {
         y = y - fall_rate; 
       }
   }
-  
   //Draws the Flappy Bird if life greater than 0
   //Calls: draw_with_rgb
   void draw() {
@@ -144,6 +141,7 @@ class Bird {
   int life; 
   bool jumped;
 
+  
   //Draws Flappy Bird
   void draw_with_rgb(Color body_color, Color eye_color, Color mouth_color){
     matrix.drawPixel(x + 4, y + 7, body_color.to_333()); 
@@ -182,19 +180,12 @@ class Pipes {
   
   //Y remains the same, while the X moves to the left
   void move() {
+    x+=1;
   }
   
   //Draws the Pipe
   void draw() {
-  if () {
-  x = random() //Input something in parentheses
-  y = random() //Input something 
-  }
-  
-   //As the game move to the left, the pixel will delete
-  void erase() {
- 
-  
+    draw_with_rgb(GREEN);
   }
 
   private: 
@@ -203,12 +194,15 @@ class Pipes {
 
   //Draws the Pipe (with RGB Green) randomized Y values
   void draw_with_rgb(Color pipe_color){
-    for (int i = 32; i = 0; i - 4) {
-      matrix.drawRect(i, 0, 3, 5, GREEN.to_333()); 
-      matrix.fillRect(i, 0, 3, 5, GREEN.to_333()); 
-
-      matrix.drawRect(i, 10, 3, 5, GREEN.to_333()); 
-      matrix.fillRect(i, 10, 3, 5, GREEN.to_333()); 
+   for (int x = 7; x < 32;  x += random(10,19)) {
+     int random1 = random(1,7);
+     int random2 = random(1,7);
+    matrix.drawRect(x, 0, 4, 6, GREEN.to_333());
+    matrix.fillRect(x, 0, 4, 6, GREEN.to_333());
+    
+    matrix.drawRect(x, 10, 4, 6, GREEN.to_333());
+    matrix.fillRect(x, 10, 4, 6, GREEN.to_333());
+   }
   }
 };
 
@@ -224,30 +218,29 @@ class Game {
   //Modifies: Global variable Matrix
   void setup(){
     bird.draw();
+    pipe.draw();
     reset_game(); 
-    for (int i = 32; i = 0; i - 4) {
-      matrix.drawRect(i, 0, 3, 5, GREEN.to_333()); 
-      matrix.fillRect(i, 0, 3, 5, GREEN.to_333()); 
-
-      matrix.drawRect(i, 10, 3, 5, GREEN.to_333()); 
-      matrix.fillRect(i, 10, 3, 5, GREEN.to_333()); 
+ 
   }
-   }
-   
   // advances the game simulation one step and renders the graphics
   // see spec for details of game
   // Modifies: global variable matrix
   void update(int potentiometer_value, bool button_pressed){ 
 
     if (button_pressed) {
-      time = millis();
       if (millis() - time > 1000) {
+        pipe.move();
+        bird.set_jumped(true);
         bird.erase();
         bird.move();
         bird.draw();
-        }
+        time = millis();
       }
     }
+    
+    }
+
+   
 
     //if statements if the bird hits the pipe or the ground
 
@@ -258,8 +251,9 @@ class Game {
     //Array of Pipes for Flappy Bird
   Pipes pipe; 
   
-  //Resets the Game FIX ME
+  //Resets the Game
   void reset_game(){
+    //CODE
   }
 };
 
