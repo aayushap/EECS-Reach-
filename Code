@@ -174,6 +174,10 @@ class Pipes {
   //Draws the Pipe
   void draw() {
   }
+  
+  //Erases the Pipe
+  void erase() {
+  }
 
   private: 
   int x; //width
