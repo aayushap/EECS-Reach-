@@ -66,7 +66,7 @@ class Bird {
   }
 
   Bird(int x_arg, int y_arg){
-    initialize(x_arg, y_arg,); 
+    initialize(x_arg, y_arg); 
   }
   
   void initialize (int x_arg, int y_arg){
@@ -80,9 +80,11 @@ class Bird {
   int get_x() const {
     return x;
   }
+  
   int get_y() const {
     return y; 
   }
+  
   int get_life() const {
     return life; 
   }
@@ -112,6 +114,7 @@ class Bird {
         y = y - fall_rate; 
       }
   }
+  
   //Draws the Flappy Bird if life greater than 0
   //Calls: draw_with_rgb
   void draw() {
@@ -141,7 +144,6 @@ class Bird {
   int life; 
   bool jumped;
 
-  
   //Draws Flappy Bird
   void draw_with_rgb(Color body_color, Color eye_color, Color mouth_color){
     matrix.drawPixel(x + 4, y + 7, body_color.to_333()); 
@@ -184,11 +186,9 @@ class Pipes {
   
   //Draws the Pipe
   void draw() {
-      draw_with_rgb(GREEN.to_333()); 
   }
   
   void erase() {
-  
   }
 
   private: 
@@ -197,7 +197,7 @@ class Pipes {
 
   //Draws the Pipe (with RGB Green) randomized Y values
   void draw_with_rgb(Color pipe_color){
-    for (int width = 32; i = 0; i - 4) {
+    for (int i = 32; i = 0; i - 4) {
       matrix.drawRect(i, 0, 3, 5, GREEN.to_333()); 
       matrix.fillRect(i, 0, 3, 5, GREEN.to_333()); 
 
@@ -219,10 +219,13 @@ class Game {
   void setup(){
     bird.draw();
     reset_game(); 
-    matrix.drawRect(5, 0, 4, 6, GREEN.to_333());
-    matrix.fillRect(5, 0, 4, 6, GREEN.to_333());
-    matrix.drawRect(5, 10, 4, 6, GREEN.to_333());
-    matrix.fillRect(5, 10, 4, 6, GREEN.to_333());
+    for (int i = 32; i = 0; i - 4) {
+      matrix.drawRect(i, 0, 3, 5, GREEN.to_333()); 
+      matrix.fillRect(i, 0, 3, 5, GREEN.to_333()); 
+
+      matrix.drawRect(i, 10, 3, 5, GREEN.to_333()); 
+      matrix.fillRect(i, 10, 3, 5, GREEN.to_333()); 
+  }
    }
    
   // advances the game simulation one step and renders the graphics
@@ -251,12 +254,6 @@ class Game {
   
   //Resets the Game FIX ME
   void reset_game(){
-    //If the button is pressed, the pipes begin to form. 
-    int randomPipe = random(1, 100); 
-    if (jumped) {
-      pipes[randomPipe].draw(); 
-      }
-    }
   }
 };
 
