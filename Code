@@ -17,6 +17,9 @@ const int BUTTON_PIN_NUMBER = 10;
 // a global variable that represents the LED screen
 RGBmatrixPanel matrix(A, B, C, CLK, LAT, OE, false);
 
+// constant number of pipes in the game
+const int NUM_PIPES = 100;
+
 // the following functions are for printing messages
 void print_score(int score);
 void game_over();
@@ -105,11 +108,11 @@ class Bird {
   void move() {
       if (jumped) {
         // Will rise by rise_rate
-        y = y + rise_rate;
+        y = y - rise_rate;
       }
       else {
         // when button released, will fall by fall rate.
-        y = y - fall_rate; 
+        y = y + fall_rate; 
       }
   }
   //Draws the Flappy Bird if life greater than 0
@@ -119,7 +122,7 @@ class Bird {
      erase(); 
     }
     else {
-     draw_with_rgb(YELLOW, WHITE, BLUE); 
+     draw_with_rgb(YELLOW,BLUE); 
     }
   }
   
@@ -132,7 +135,7 @@ class Bird {
   //Draws the background color, Black, where the Flappy Bird used to be.
   //Calls: draw_with_rgb
   void erase() {
-    draw_with_rgb(BLACK, BLACK, BLACK); 
+    draw_with_rgb(BLACK, BLACK); 
   }
   
   private:
@@ -143,11 +146,15 @@ class Bird {
 
   
   //Draws Flappy Bird
-  void draw_with_rgb(Color body_color, Color eye_color, Color mouth_color){
+  void draw_with_rgb(Color body_color, Color mouth_color){
+    matrix.drawPixel(x + 4, y + 8, body_color.to_333()); 
     matrix.drawPixel(x + 4, y + 7, body_color.to_333()); 
     matrix.drawPixel(x + 4, y + 6, body_color.to_333()); 
-    matrix.drawPixel(x + 5, y + 7, eye_color.to_333()); 
-    matrix.drawPixel(x + 5, y + 6, mouth_color.to_333()); 
+    matrix.drawPixel(x + 6, y + 7, body_color.to_333()); 
+    matrix.drawPixel(x + 6, y + 6, body_color.to_333()); 
+     matrix.drawPixel(x + 6, y + 8, body_color.to_333());
+      matrix.drawPixel(x + 5, y + 6, mouth_color.to_333());
+       matrix.drawPixel(x + 5, y + 7, mouth_color.to_333());
   }
 };
 
@@ -194,7 +201,7 @@ class Pipes {
 
   //Draws the Pipe (with RGB Green) randomized Y values
   void draw_with_rgb(Color pipe_color){
-   for (int x = 7; x < 32;  x += random(10,19)) {
+   for (int x = 7; x < 100;  x += random(10,19)) {
      int random1 = random(1,7);
      int random2 = random(1,7);
     matrix.drawRect(x, 0, 4, 6, GREEN.to_333());
@@ -226,18 +233,22 @@ class Game {
   // see spec for details of game
   // Modifies: global variable matrix
   void update(int potentiometer_value, bool button_pressed){ 
-
+    Serial.print(button_pressed);
     if (button_pressed) {
-      if (millis() - time > 1000) {
-        pipe.move();
-        bird.set_jumped(true);
+      bird.set_jumped(true);
+    }
+
+    else {
+      bird.set_jumped(false);
+    }
+      if (millis() - time > 500){
+        //pipe.move();
+       // Serial.print(bird.has_jumped());
         bird.erase();
         bird.move();
         bird.draw();
         time = millis();
       }
-    }
-    
     }
 
    
@@ -248,6 +259,7 @@ class Game {
   int score; 
   int time; 
   Bird bird; 
+  unsigned long last_jump;
     //Array of Pipes for Flappy Bird
   Pipes pipe; 
   
@@ -268,7 +280,7 @@ void setup() {
 
 void loop() {
    int potentiometer_value = analogRead(POTENTIOMETER_PIN_NUMBER);
-  bool button_pressed = (digitalRead(BUTTON_PIN_NUMBER) == LOW);
+  bool button_pressed = (digitalRead(BUTTON_PIN_NUMBER) == HIGH);
   game.update(potentiometer_value, button_pressed);
 }
 
