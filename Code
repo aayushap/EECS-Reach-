@@ -62,16 +62,18 @@ class Bird {
      x = 0; 
      y = 0; 
      life = 1; 
+     jumped = false;
   }
 
   Bird(int x_arg, int y_arg){
-    initialize(x_arg, y_arg); 
+    initialize(x_arg, y_arg,); 
   }
   
   void initialize (int x_arg, int y_arg){
     x = x_arg; 
     y = y_arg; 
     life = 1; 
+    jumped = false;
   }
   
   //Getters & Setters for Bird
@@ -84,15 +86,23 @@ class Bird {
   int get_life() const {
     return life; 
   }
+
+  bool has_jumped() const {
+    return jumped;
+  }
+
+   void set_jumped(bool is_Jump) {
+    jumped = is_Jump;
+   }
+   
   int set_y(int y_arg) {
     y = y_arg;
   }
   
   //Moves the bird up and down
-  //Modifies: y
-  bool jumped;
+  //Modifies: y, jumped
+  
   void move() {
-  int outofBounds = 16;
       if (jumped) {
         // Will rise by rise_rate
         y = y + rise_rate;
@@ -174,17 +184,13 @@ class Pipes {
   //Draws the Pipe
   void draw() {
   }
-  
-  //Erases the Pipe
-  void erase() {
-  }
 
   private: 
   int x; //width
   int y; //Height
 
   //Draws the Pipe (with RGB Green) randomized Y values
-  void draw_with_rgb(Color pipe_color){
+  void draw_with_rgb(Color side_pipe_color, Color top_pipe_color){
  
   }
 };
@@ -200,28 +206,30 @@ class Game {
   //Sets up a new Game of FlappyBird
   //Modifies: Global variable Matrix
   void setup(){
+    bird.draw();
     reset_game(); 
     matrix.drawRect(5, 0, 4, 6, GREEN.to_333());
     matrix.fillRect(5, 0, 4, 6, GREEN.to_333());
     matrix.drawRect(5, 10, 4, 6, GREEN.to_333());
     matrix.fillRect(5, 10, 4, 6, GREEN.to_333());
-
    }
    
   // advances the game simulation one step and renders the graphics
   // see spec for details of game
   // Modifies: global variable matrix
   void update(int potentiometer_value, bool button_pressed){ 
+
     if (button_pressed) {
       time = millis();
       if (millis() - time > 1000) {
         bird.erase();
-        bird.draw();
         bird.move();
+        bird.draw();
       }
     }
     
     }
+
    
 
     //if statements if the bird hits the pipe or the ground
@@ -249,8 +257,7 @@ void setup() {
 }
 
 void loop() {
-  int score;
-  int potentiometer_value = analogRead(POTENTIOMETER_PIN_NUMBER);
+   int potentiometer_value = analogRead(POTENTIOMETER_PIN_NUMBER);
   bool button_pressed = (digitalRead(BUTTON_PIN_NUMBER) == LOW);
   game.update(potentiometer_value, button_pressed);
 }
