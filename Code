@@ -139,6 +139,7 @@ class Bird {
   int x; 
   int y; 
   int life; 
+  bool jumped;
 
   
   //Draws Flappy Bird
@@ -183,6 +184,11 @@ class Pipes {
   
   //Draws the Pipe
   void draw() {
+      draw_with_rgb(GREEN.to_333()); 
+  }
+  
+  void erase() {
+  
   }
 
   private: 
@@ -190,8 +196,13 @@ class Pipes {
   int y; //Height
 
   //Draws the Pipe (with RGB Green) randomized Y values
-  void draw_with_rgb(Color side_pipe_color, Color top_pipe_color){
- 
+  void draw_with_rgb(Color pipe_color){
+    for (int width = 32; i = 0; i - 4) {
+      matrix.drawRect(i, 0, 3, 5, GREEN.to_333()); 
+      matrix.fillRect(i, 0, 3, 5, GREEN.to_333()); 
+
+      matrix.drawRect(i, 10, 3, 5, GREEN.to_333()); 
+      matrix.fillRect(i, 10, 3, 5, GREEN.to_333()); 
   }
 };
 
@@ -225,12 +236,9 @@ class Game {
         bird.erase();
         bird.move();
         bird.draw();
+        }
       }
     }
-    
-    }
-
-   
 
     //if statements if the bird hits the pipe or the ground
 
@@ -241,9 +249,14 @@ class Game {
     //Array of Pipes for Flappy Bird
   Pipes pipe; 
   
-  //Resets the Game
+  //Resets the Game FIX ME
   void reset_game(){
-    //CODE
+    //If the button is pressed, the pipes begin to form. 
+    int randomPipe = random(1, 100); 
+    if (jumped) {
+      pipes[randomPipe].draw(); 
+      }
+    }
   }
 };
 
