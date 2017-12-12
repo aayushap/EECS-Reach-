@@ -202,11 +202,12 @@ class Pipes {
 
 //Draws the Pipe (with RGB Green) randomized Y values
 void draw_with_rgb(Color pipe_color){
-    matrix.drawRect(x_pos, 0, width, height, GREEN.to_333());
-    matrix.fillRect(x_pos, 0, width, height, GREEN.to_333());
-    
-    matrix.drawRect(x_pos, height + 4, width, 16 - height + 4, GREEN.to_333());
-    matrix.fillRect(x_pos, height + 4, width, 16 - height + 4, GREEN.to_333());
+  for (int x_pos = 12; x_pos < 210; x_pos + 7){
+    for (int num_pip = 0; num_pip < TOTAL_PIPES; num_pip++){ 
+     int randomNum = random(2, 10);
+     pipey[num_pip].initalize(4, randomNum, x_pos); 
+     pipey[num_pip].draw(); 
+    }
   }
 };
 
