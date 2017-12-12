@@ -18,7 +18,7 @@ const int BUTTON_PIN_NUMBER = 10;
 RGBmatrixPanel matrix(A, B, C, CLK, LAT, OE, false);
 
 // constant number of pipes in the game
-const int TOTAL_PIPES = 30; 
+const int TOTAL_PIPES = 20; 
 
 // the following functions are for printing messages
 void print_score(int score);
@@ -207,24 +207,8 @@ void erase() {
    int x_pos; //32 Horizontal X Position
 
 /* 
- *    //Draws the Pipe (with RGB Green) randomized Y values
-  void draw_with_rgb(Color pipe_color){
-   for (int x = 7; x < 100;  x += 7) {
-    randomSeed(analogRead(0));
-     int random1 = random(1,7);
-     int random2 = random(1,7);
-    matrix.drawRect(x, 0, 4, random1, GREEN.to_333());
-    matrix.fillRect(x, 0, 4, random1, GREEN.to_333());
-    
-    matrix.drawRect(x, 10, 4, random2, GREEN.to_333());
-    matrix.fillRect(x, 10, 4, random2, GREEN.to_333());
-   }
-  }
-};
-*
-*/
-
 //Draws the Pipe (with RGB Green) randomized Y values
+//FIX ME: No Gap shows! Better for Randomized Pipes. 
 void draw_with_rgb(Color pipe_color){
     int botHeight = 16 - height - 4;
     int botTopPos = height + 4;  
@@ -234,6 +218,19 @@ void draw_with_rgb(Color pipe_color){
     
     matrix.drawRect(x_pos, botTopPos + 3, width, botHeight, pipe_color.to_333());
     matrix.fillRect(x_pos, botTopPos + 3, width, botHeight, pipe_color.to_333());
+  }
+*/
+
+//Draws the Pipe (with RGB Green) randomized Y values
+void draw_with_rgb(Color pipe_color){
+    int botHeight = 16 - height - 4;
+    int botTopPos = height + 4;
+    
+    matrix.drawRect(x_pos, 0, width, height, GREEN.to_333());
+    matrix.fillRect(x_pos, 0, width, height, GREEN.to_333());
+    
+    matrix.drawRect(x_pos, botTopPos, width, botHeight, BLUE.to_333());
+    matrix.fillRect(x_pos, botTopPos, width, botHeight, BLUE.to_333());
   }
 };
 
@@ -253,7 +250,6 @@ class Game {
     matrix.begin();
     bird.draw();
     reset_game(); 
- 
   }
   
   // advances the game simulation one step and renders the graphics
@@ -264,18 +260,23 @@ class Game {
     if (button_pressed) {
       last_jump = millis();
       bird.set_jumped(true);
-      
     }
-
     else {
       bird.set_jumped(false);
     }
-    
-     if (millis() - time > 300){
+    if (millis() - time > 300){
        bird.erase();
        bird.move();
        bird.draw();
        time = millis();
+       /*
+       for (int i = 0; i < TOTAL_PIPES; i++) {
+        pipey[i].erase();
+        pipey[i].move();
+        pipey[i].draw();
+        time = millis();
+       }
+       */
       }
     }
 
@@ -290,6 +291,7 @@ class Game {
   
   //Resets the Game
   void reset_game(){
+   /* FIX ME: HELP. 
    for (int x_pos = 11; x_pos < 210; x_pos = x_pos + 8){
      for (int count = 0; count < TOTAL_PIPES; count++){ 
        int randomNum = random(2, 10);  
@@ -298,7 +300,36 @@ class Game {
        pipey[count].draw(); 
       }
     }
+  } 
+  */
+
+  //We created the Pipes
+  pipey[0].initialize(4, 3, 10); 
+  pipey[1].initialize(4, 5, 18); 
+  pipey[2].initialize(4, 2, 26); 
+  pipey[3].initialize(4, 10, 34); 
+  pipey[4].initialize(4, 6, 42); 
+  pipey[5].initialize(4, 3, 50); 
+  pipey[6].initialize(4, 5, 58); 
+  pipey[7].initialize(4, 9, 66); 
+  pipey[8].initialize(4, 8, 74); 
+  pipey[9].initialize(4, 4, 82); 
+  pipey[10].initialize(4, 7, 90); 
+  pipey[11].initialize(4, 10, 98); 
+  pipey[12].initialize(4, 3, 106); 
+  pipey[13].initialize(4, 4, 114); 
+  pipey[14].initialize(4, 9, 122); 
+  pipey[15].initialize(4, 4, 130); 
+  pipey[16].initialize(4, 10, 138); 
+  pipey[17].initialize(4, 5, 146); 
+  pipey[18].initialize(4, 2, 154); 
+  pipey[19].initialize(4, 7, 162); 
+
+  //For loop to draw all the initialized pipes. 
+  for (int pipe_count = 0; pipe_count < TOTAL_PIPES; pipe_count++){
+    pipey[pipe_count].draw(); 
   }
+ }
 };
 
 Game game; 
