@@ -18,7 +18,8 @@ const int BUTTON_PIN_NUMBER = 10;
 RGBmatrixPanel matrix(A, B, C, CLK, LAT, OE, false);
 
 // constant number of pipes in the game
-const int TOTAL_PIPES = 30; 
+const int NUM_PIPES = 20;
+
 
 // the following functions are for printing messages
 void print_score(int score);
@@ -55,7 +56,7 @@ const Color WHITE(7, 7, 7);
 const Color LIME(4, 7, 0);
 const Color AQUA(0, 7, 7);
 
-const float rise_rate = 2.0;
+const float rise_rate = 1.0;
 const float fall_rate = 1.0;
 
 class Bird {
@@ -115,7 +116,6 @@ class Bird {
         y = y + fall_rate; 
       }
   }
-  
   //Draws the Flappy Bird if life greater than 0
   //Calls: draw_with_rgb
   void draw() {
@@ -123,7 +123,7 @@ class Bird {
      erase(); 
     }
     else {
-     draw_with_rgb(YELLOW, BLUE); 
+     draw_with_rgb(YELLOW,BLUE); 
     }
   }
   
@@ -145,6 +145,7 @@ class Bird {
   int life; 
   bool jumped;
 
+  
   //Draws Flappy Bird
   void draw_with_rgb(Color body_color, Color mouth_color){
     matrix.drawPixel(x + 4, y + 8, body_color.to_333()); 
@@ -158,38 +159,51 @@ class Bird {
   }
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Pipes {
   public: 
   //Default and Non-default Constructors
   Pipes() {
-    width = 0;
-    height = 0;
-    x_pos = 12; 
+    x = 0;
+    y = 0;
   }
   
   //Initializes the width and height of Pipes
-  Pipes(int width, int height, int x_pos) {
-    initialize(width, height, x_pos);
+  Pipes(int width, int height) {
+    initialize(width, height);
   }
   
-  void initialize(int width1, int height1, int x_posit) {
-    width = width1;
-    height = height1;
-    x_pos = x_posit; 
+  void initialize(int width, int height) {
+    x = width;
+    y = height;
   }
   
   //Getters and Setters for x and y
-  int get_width() const {
-    return width;
+  int get_x() const {
+    return x;
   }
   
-  int get_height() const {
-    return height;
+  int get_y() const {
+    return y;
   }
   
   //Y remains the same, while the X moves to the left
   void move() {
-    width -= 1;
+    x +=1 ;
   }
   
   //Draws the Pipe
@@ -197,23 +211,40 @@ class Pipes {
     draw_with_rgb(GREEN);
   }
 
-  private: 
-  int width; //width
-  int height; //Height
-  int x_pos; //32 Horizontal X Position
+  void erase() {
+    draw_with_rgb(BLACK);
+  }
 
-//Draws the Pipe (with RGB Green) randomized Y values
-void draw_with_rgb(Color pipe_color){
-    int botHeight = 16 - height - 4;
-    int botTopPos = height + 4;  
+  private: 
+  int x; //width
+  int y; //Height
+
+  //Draws the Pipe (with RGB Green) randomized Y values
+  void draw_with_rgb(Color pipe_color){
+   for (int x = 7; x < 100;  x += 7) {
+    randomSeed(analogRead(0));
+     int random1 = random(1,7);
+     int random2 = random(1,7);
+    matrix.drawRect(x, 0, 4, random1, GREEN.to_333());
+    matrix.fillRect(x, 0, 4, random1, GREEN.to_333());
     
-    matrix.drawRect(x_pos, 0, width, height, RED.to_333());
-    matrix.fillRect(x_pos, 0, width, height, RED.to_333());
-    
-    matrix.drawRect(x_pos, botTopPos, width, botHeight, pipe_color.to_333());
-    matrix.fillRect(x_pos, botTopPos, width, botHeight, pipe_color.to_333());
+    matrix.drawRect(x, 10, 4, random2, GREEN.to_333());
+    matrix.fillRect(x, 10, 4, random2, GREEN.to_333());
+   }
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
 
 class Game {
   public:
@@ -226,52 +257,71 @@ class Game {
   //Sets up a new Game of FlappyBird
   //Modifies: Global variable Matrix
   void setup(){
+    time = 0;
+    randomSeed(analogRead(0));
+    matrix.begin();
     bird.draw();
+    pipe.draw();
+    pipe.erase();
     reset_game(); 
+ 
   }
-  
   // advances the game simulation one step and renders the graphics
   // see spec for details of game
   // Modifies: global variable matrix
   void update(int potentiometer_value, bool button_pressed){ 
     Serial.print(button_pressed);
     if (button_pressed) {
+      last_jump = millis();
       bird.set_jumped(true);
+      
     }
 
     else {
       bird.set_jumped(false);
     }
-      if (millis() - time > 500){
-       //pipe.move();
-       // Serial.print(bird.has_jumped());
-        bird.erase();
-        bird.move();
-        bird.draw();
-        time = millis();
+    
+     if (millis() - time > 300){
+       bird.erase();
+       bird.move();
+       bird.draw();
+       time = millis();
       }
+
+      
     }
+
+   
 
     //if statements if the bird hits the pipe or the ground
 
   private:
-   int score; 
-   int time; 
-   Bird bird; 
-   unsigned long last_jump;  
-   Pipes pipey[TOTAL_PIPES];
+  int score; 
+  unsigned long time; 
+  Bird bird; 
+  unsigned long last_jump;
+    //Array of Pipes for Flappy Bird
+    //Pipes pipe[NUM_PIPES];
+  Pipes pipe; 
   
   //Resets the Game
   void reset_game(){
-   for (int x_pos = 10; x_pos < 210; x_pos = x_pos + 7){
-     for (int count = 0; count < TOTAL_PIPES; count++){ 
-       int randomNum = random(2, 10);  
-       pipey[count].initialize(4, randomNum, x_pos); 
-       pipey[count].draw(); 
-      }
-    }
+    //CODE
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Game game; 
 
@@ -283,8 +333,8 @@ void setup() {
 }
 
 void loop() {
-   int potentiometer_value = analogRead(POTENTIOMETER_PIN_NUMBER);
-  bool button_pressed = (digitalRead(BUTTON_PIN_NUMBER) == HIGH);
+  int potentiometer_value = analogRead(POTENTIOMETER_PIN_NUMBER);
+  bool button_pressed =(digitalRead(BUTTON_PIN_NUMBER) == HIGH);
   game.update(potentiometer_value, button_pressed);
 }
 
@@ -312,28 +362,28 @@ void print_score(int score) {
 
 //Displays "Game Over"
 void game_over() {
-  matrix.setCursor(3,0);
-  matrix.setTextSize(1);
+matrix.setCursor(3,0);
+matrix.setTextSize(1);
 
 //game over displays in red
-  matrix.setTextColor(matrix.Color333(7,0,0));
-  matrix.print('G');
-  matrix.setTextColor(matrix.Color333(7,0,0));
-  matrix.print('A');
-  matrix.setTextColor(matrix.Color333(7,0,0));
-  matrix.print('M');
-  matrix.setTextColor(matrix.Color333(7,0,0));  
-  matrix.print('E');
+matrix.setTextColor(matrix.Color333(7,0,0));
+matrix.print('G');
+matrix.setTextColor(matrix.Color333(7,0,0));
+matrix.print('A');
+matrix.setTextColor(matrix.Color333(7,0,0));
+matrix.print('M');
+matrix.setTextColor(matrix.Color333(7,0,0));
+matrix.print('E');
 
-  matrix.setCursor(2,9);
-  matrix.setTextColor(matrix.Color333(7,0,0));
-  matrix.print('O');
-  matrix.setTextColor(matrix.Color333(7,0,0));
-  matrix.print('V');
-  matrix.setTextColor(matrix.Color333(7,0,0));
-  matrix.print('E');
-  matrix.setTextColor(matrix.Color333(7,0,0));
-  matrix.print('R');
-  matrix.setTextColor(matrix.Color333(7,0,0));
-  matrix.print('!');
+matrix.setCursor(2,9);
+matrix.setTextColor(matrix.Color333(7,0,0));
+matrix.print('O');
+matrix.setTextColor(matrix.Color333(7,0,0));
+matrix.print('V');
+matrix.setTextColor(matrix.Color333(7,0,0));
+matrix.print('E');
+matrix.setTextColor(matrix.Color333(7,0,0));
+matrix.print('R');
+matrix.setTextColor(matrix.Color333(7,0,0));
+matrix.print('!');
 }
