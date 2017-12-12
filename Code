@@ -55,7 +55,7 @@ const Color WHITE(7, 7, 7);
 const Color LIME(4, 7, 0);
 const Color AQUA(0, 7, 7);
 
-const float rise_rate = 2.0;
+const float rise_rate = 1.0;
 const float fall_rate = 1.0;
 
 class Bird {
