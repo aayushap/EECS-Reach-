@@ -48,14 +48,14 @@ const Color BLACK(0, 0, 0);
 const Color RED(7, 0, 0);
 const Color ORANGE(7, 4, 0);
 const Color YELLOW(7, 7, 0);
-const Color GREEN(0, 7, 0);
+const Color GREEN(0, 9, 0);
 const Color BLUE(0, 0, 7);
 const Color PURPLE(7, 0, 7);
 const Color WHITE(7, 7, 7);
 const Color LIME(4, 7, 0);
 const Color AQUA(0, 7, 7);
 
-const float rise_rate = 1.0;
+const float rise_rate = 2.0;
 const float fall_rate = 1.0;
 
 class Bird {
@@ -168,11 +168,11 @@ class Pipes {
   }
   
   //Initializes the width and height of Pipes
-  Pipes(int width, int height, int x_pos) {
+  Pipes(int width, int height, double x_pos) {
     initialize(width, height, x_pos);
   }
   
-  void initialize(int width1, int height1, int x_posit) {
+  void initialize(int width1, int height1, double x_posit) {
     width = width1;
     height = height1;
     x_pos = x_posit; 
@@ -189,7 +189,7 @@ class Pipes {
   
   //Y remains the same, while the X moves to the left
   void move() {
-    x_pos -= 1;
+    x_pos -= .25;
   }
   
   //Draws the Pipe
@@ -204,7 +204,7 @@ void erase() {
   private: 
    int width; //width
    int height; //Height
-   int x_pos; //32 Horizontal X Position
+   double x_pos; //32 Horizontal X Position
 
 /* 
 //Draws the Pipe (with RGB Green) randomized Y values
@@ -213,8 +213,8 @@ void draw_with_rgb(Color pipe_color){
     int botHeight = 16 - height - 4;
     int botTopPos = height + 4;  
     
-    matrix.drawRect(x_pos, 0, width, height, pipe_color.to_333());
-    matrix.fillRect(x_pos, 0, width, height, pipe_color.to_333());
+    matrix.drawRect(x_pos, 0, width, height, RED.to_333());
+    matrix.fillRect(x_pos, 0, width, height, RED.to_333());
     
     matrix.drawRect(x_pos, botTopPos + 3, width, botHeight, pipe_color.to_333());
     matrix.fillRect(x_pos, botTopPos + 3, width, botHeight, pipe_color.to_333());
@@ -223,14 +223,14 @@ void draw_with_rgb(Color pipe_color){
 
 //Draws the Pipe (with RGB Green) randomized Y values
 void draw_with_rgb(Color pipe_color){
-    int botHeight = 16 - height - 4;
-    int botTopPos = height + 4;
+    int botHeight = 16 - height - 6;
+    int botTopPos = height + 6;
     
-    matrix.drawRect(x_pos, 0, width, height, GREEN.to_333());
-    matrix.fillRect(x_pos, 0, width, height, GREEN.to_333());
+    matrix.drawRect(x_pos, 0, width, height, pipe_color.to_333());
+    matrix.fillRect(x_pos, 0, width, height, pipe_color.to_333());
     
-    matrix.drawRect(x_pos, botTopPos, width, botHeight, BLUE.to_333());
-    matrix.fillRect(x_pos, botTopPos, width, botHeight, BLUE.to_333());
+    matrix.drawRect(x_pos, botTopPos, width, botHeight, pipe_color.to_333());
+    matrix.fillRect(x_pos, botTopPos, width, botHeight, pipe_color.to_333());
   }
 };
 
@@ -278,6 +278,13 @@ class Game {
        }
        */
       }
+     if (millis() - time > 4){
+      for(int smallbutt = 0; smallbutt < TOTAL_PIPES; smallbutt++){
+        pipey[smallbutt].erase(); 
+        pipey[smallbutt].move(); 
+        pipey[smallbutt].draw(); 
+      }
+     }
     }
 
     //if statements if the bird hits the pipe or the ground
