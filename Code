@@ -213,8 +213,8 @@ void draw_with_rgb(Color pipe_color){
     int botHeight = 16 - height - 4;
     int botTopPos = height + 4;  
     
-    matrix.drawRect(x_pos, 0, width, height, RED.to_333());
-    matrix.fillRect(x_pos, 0, width, height, RED.to_333());
+    matrix.drawRect(x_pos, 0, width, height, pipe_color.to_333());
+    matrix.fillRect(x_pos, 0, width, height, pipe_color.to_333());
     
     matrix.drawRect(x_pos, botTopPos + 3, width, botHeight, pipe_color.to_333());
     matrix.fillRect(x_pos, botTopPos + 3, width, botHeight, pipe_color.to_333());
