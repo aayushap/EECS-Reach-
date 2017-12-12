@@ -18,7 +18,7 @@ const int BUTTON_PIN_NUMBER = 10;
 RGBmatrixPanel matrix(A, B, C, CLK, LAT, OE, false);
 
 // constant number of pipes in the game
-const int NUM_PIPES = 100;
+const int TOTAL_PIPES = 30; 
 
 // the following functions are for printing messages
 void print_score(int score);
@@ -152,9 +152,9 @@ class Bird {
     matrix.drawPixel(x + 4, y + 6, body_color.to_333()); 
     matrix.drawPixel(x + 6, y + 7, body_color.to_333()); 
     matrix.drawPixel(x + 6, y + 6, body_color.to_333()); 
-     matrix.drawPixel(x + 6, y + 8, body_color.to_333());
-      matrix.drawPixel(x + 5, y + 6, mouth_color.to_333());
-       matrix.drawPixel(x + 5, y + 7, mouth_color.to_333());
+    matrix.drawPixel(x + 6, y + 8, body_color.to_333());
+    matrix.drawPixel(x + 5, y + 6, mouth_color.to_333());
+    matrix.drawPixel(x + 5, y + 7, mouth_color.to_333());
   }
 };
 
@@ -164,11 +164,12 @@ class Pipes {
   Pipes() {
     x = 0;
     y = 0;
+    x_pos = 12; 
   }
   
   //Initializes the width and height of Pipes
-  Pipes(int width, int height) {
-    initialize(width, height);
+  Pipes(int width, int height, int x_pos) {
+    initialize(width, height, x_pos);
   }
   
   void initialize(int width, int height) {
@@ -199,17 +200,13 @@ class Pipes {
   int x; //width
   int y; //Height
 
-  //Draws the Pipe (with RGB Green) randomized Y values
-  void draw_with_rgb(Color pipe_color){
-   for (int x = 7; x < 100;  x += random(10,19)) {
-     int random1 = random(1,7);
-     int random2 = random(1,7);
-    matrix.drawRect(x, 0, 4, 6, GREEN.to_333());
-    matrix.fillRect(x, 0, 4, 6, GREEN.to_333());
+//Draws the Pipe (with RGB Green) randomized Y values
+void draw_with_rgb(Color pipe_color){
+    matrix.drawRect(x_pos, 0, width, height, GREEN.to_333());
+    matrix.fillRect(x_pos, 0, width, height, GREEN.to_333());
     
-    matrix.drawRect(x, 10, 4, 6, GREEN.to_333());
-    matrix.fillRect(x, 10, 4, 6, GREEN.to_333());
-   }
+    matrix.drawRect(x_pos, height + 4, width, 16 - height + 4, GREEN.to_333());
+    matrix.fillRect(x_pos, height + 4, width, 16 - height + 4, GREEN.to_333());
   }
 };
 
@@ -260,8 +257,8 @@ class Game {
   int time; 
   Bird bird; 
   unsigned long last_jump;
-    //Array of Pipes for Flappy Bird
-  Pipes pipe; 
+  //Array for the pipes
+  Pipes pipes[TOTAL_PIPES]; 
   
   //Resets the Game
   void reset_game(){
